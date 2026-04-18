@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Para Danna Bonita</title>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --azul-magico: #2e5a88;
+            --azul-claro: #a8d1e7;
+            --azul-hortensia: #7b9acc;
+            --negro-profundo: #050505;
+            --blanco-suave: #f0f0f0;
+        }
+
+        body, html {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            font-family: 'Montserrat', sans-serif;
+            background-color: var(--negro-profundo);
+            color: var(--blanco-suave);
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+
+        /* --- PANTALLA DE LOGIN --- */
+        #login-screen {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle, #0f172a 0%, #000 100%);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            transition: opacity 1s ease;
+        }
+
+        .login-card {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 40px;
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(46, 90, 136, 0.5);
+            text-align: center;
+            box-shadow: 0 0 30px rgba(46, 90, 136, 0.3);
+        }
+
+        h2 {
+            font-family: 'Dancing Script', cursive;
+            font-size: 3rem;
+            margin-bottom: 20px;
+            color: var(--azul-claro);
+            text-shadow: 0 0 10px rgba(168, 209, 231, 0.5);
+        }
+
+        input {
+            padding: 15px 25px;
+            border-radius: 30px;
+            border: 1px solid var(--azul-magico);
+            outline: none;
+            background: rgba(0, 0, 0, 0.5);
+            color: white;
+            font-size: 1.2rem;
+            margin-bottom: 25px;
+            width: 220px;
+            text-align: center;
+            transition: 0.3s;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        input:focus {
+            box-shadow: 0 0 20px var(--azul-magico);
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        button.btn-entrar {
+            padding: 12px 35px;
+            border-radius: 30px;
+            border: none;
+            background: var(--azul-magico);
+            color: white;
+            cursor: pointer;
+            font-size: 1.1rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(46, 90, 136, 0.4);
+        }
+
+        button.btn-entrar:hover {
+            transform: translateY(-3px);
+            background: #3d76b1;
+            box-shadow: 0 6px 20px rgba(46, 90, 136, 0.6);
+        }
+
+        /* --- CONTENIDO PRINCIPAL --- */
+        #main-content {
+            display: none;
+            padding: 40px 20px;
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 10;
+        }
+
+        .letter-section {
+            margin-top: 50px;
+            margin-bottom: 50px;
+            opacity: 0;
+            transform: translateY(40px);
+            transition: all 1.2s cubic-bezier(0.25, 0.8, 0.25, 1);
+            line-height: 1.9;
+            font-size: 1.15rem;
+            text-align: justify;
+            background: rgba(255, 255, 255, 0.02);
+            padding: 30px;
+            border-radius: 15px;
+            border-left: 2px solid rgba(46, 90, 136, 0.3);
+        }
+
+        .letter-section.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Estilos específicos para la imagen */
+        .img-container {
+            text-align: center;
+            background: none !important;
+            border: none !important;
+            padding: 0 !important;
+            margin-top: 20px;
+            margin-bottom: 40px;
+        }
+
+        .us-photo {
+            max-width: 90%; /* Se ajusta en móviles */
+            height: auto;
+            border-radius: 20px;
+            border: 2px solid rgba(168, 209, 231, 0.6);
+            box-shadow: 0 0 25px rgba(46, 90, 136, 0.5);
+            transition: 0.5s;
+        }
+        
+        @media (min-width: 768px) {
+            .us-photo {
+                max-width: 70%; /* Un poco más pequeña en PC */
+            }
+        }
+
+        .highlight {
+            color: var(--azul-claro);
+            font-weight: 600;
+            text-shadow: 0 0 5px rgba(168, 209, 231, 0.3);
+        }
+
+        .poem {
+            font-family: 'Dancing Script', cursive;
+            font-size: 2.2rem;
+            color: var(--azul-hortensia);
+            text-align: center;
+            margin: 60px 0;
+            line-height: 1.5;
+            background: none;
+            border: none;
+            text-shadow: 0 0 10px rgba(123, 154, 204, 0.3);
+        }
+
+        /* --- SECCIÓN FINAL: PROPUESTA --- */
+        .proposal-section {
+            margin: 100px 0;
+            text-align: center;
+            padding: 60px 40px;
+            background: radial-gradient(circle, rgba(46, 90, 136, 0.2) 0%, rgba(5,5,5,0) 100%);
+            border-radius: 30px;
+            border: 1px dashed var(--azul-hortensia);
+        }
+
+        .btn-group {
+            display: flex;
+            justify-content: center;
+            margin-top: 40px;
+        }
+
+        .btn-yes {
+            background: linear-gradient(135deg, #2e5a88, #7b9acc);
+            color: white;
+            padding: 18px 50px;
+            border-radius: 40px;
+            font-size: 1.5rem;
+            font-family: 'Dancing Script', cursive;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 0 20px rgba(123, 154, 204, 0.5);
+            transition: all 0.3s ease;
+        }
+        
+        .btn-yes:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 30px rgba(123, 154, 204, 0.8);
+        }
+
+        /* --- EFECTO DE FLORES CAYENDO (CORREGIDO) --- */
+        #flower-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 9999; /* Asegura que estén por encima de todo */
+            overflow: hidden;
+            display: none;
+        }
+
+        .flower {
+            position: absolute;
+            top: -10%;
+            user-select: none;
+            animation: fall linear infinite;
+            filter: drop-shadow(0 0 5px rgba(168, 209, 231, 0.8));
+        }
+
+        @keyframes fall {
+            0% { 
+                transform: translateY(0vh) translateX(0) rotate(0deg); 
+                opacity: 1;
+            }
+            100% { 
+                transform: translateY(110vh) translateX(50px) rotate(360deg); 
+                opacity: 0;
+            }
+        }
+
+        /* Estilos de scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: var(--negro-profundo);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: var(--azul-magico);
+            border-radius: 4px;
+        }
+
+    </style>
+</head>
+<body>
+
+    <div id="login-screen">
+        <div class="login-card">
+            <h2>Bienvenida</h2>
+            <p>Ingresa tu nombre para continuar...</p>
+            <input type="text" id="nameInput" placeholder="Tu nombre" autocomplete="off">
+            <br>
+            <button class="btn-entrar" onclick="checkLogin()">Entrar</button>
+        </div>
+    </div>
+
+    <div id="flower-container"></div>
+
+    <div id="main-content">
+        
+        <div class="letter-section" style="border:none; text-align:center; background:none; margin-bottom: 0;">
+            <h1 style="font-family: 'Dancing Script', cursive; font-size: 4rem; color: var(--azul-claro); margin-bottom: 0;">Hola, Danna bonita</h1>
+        </div>
+
+        <div class="letter-section img-container">
+            <img src="Nosotros.png" alt="Nosotros" class="us-photo">
+        </div>
+
+        <div class="letter-section">
+            <p>Principalmente no sé como empezar, pero realmente solo quiero que de alguna forma por medio de esta mini carta expresarte algo de mis sentimientos, no sé como habra sido el día pues esto lo escribe el Harri del pasado jsjsjsjs.</p>
+        </div>
+
+        <div class="letter-section">
+            <p>Primero que nada <span class="highlight">Danna bonita</span>, te queria agradecer por todo lo que has hecho, por todo lo que me has dado y por todo esos momentos que hemos pasado juntos, realmente han sido muy lindos, muy calidos, muy amorosos, muy tiernos, muy unicos y fua demasiados sentimientos en esos momentos, si lo tengo que reducir a unas cuantas palabras solo diria que cada momento contigo es muy magico y amoroso, me siento muy agradecido de haber coincidido contigo y estar construyendo to esto.</p>
+        </div>
+
+        <div class="letter-section">
+            <p>De verdad que te amo te amo te amo y te amo mucho, pues como ya te has dado cuenta ahora mismo mi corazoncito te pertenece y si, ya me he hecho muy ilusion contigo, eres la personita que mas amo y mas deseo, ya no quiero conocer a alguien más, contigo ha terminado la busqueda, te elijo con la tranquilidad de que tambien... Te eligiré mañana y es que si, te has vuelvo muy especial para mi, y de igual forma por asi decirlo quiero significar lo mismo para ti.</p>
+        </div>
+
+        <div class="letter-section">
+            <p>Por mi parte te digo que lo vas a tener todo de mi, voy a esforzarme para que veas la mejor version de mi y que sepas/sientas que te amo con demasiada devocion, simplemente quiero todo contigo, quiero hacer las cosas bien contigo, nuevamente te digo que por mi parte yo quiero todo contigo, estabilidad, algo inolvidable, envidiable, lindo, bonito, sincero, unico, quiero que seas la persona que marque mi vida por completo, en verdad ya no quiero que te vayas de mi vida.</p>
+        </div>
+
+        <div class="letter-section">
+            <p>Ahora mismo cada futuro que imagino es contigo la verdad, con <span class="highlight">Molly, Naby, Haru, Nunu, Pimientita</span>, simplemente es un futuro perfecto y el que más anhelo, te dare lo mejor de mi, porqué eso es lo que mereces, mereces todo en este mundo y yo estoy dispuesto a dartelo todo, hagams de todo, presumamonos todo lo que podamos, amemonos sin limites, sin miedo, hagamos de cuenta que somos el primer amor el uno del otro, hagamos de esto algo envidiable, unico y sincero por favor.</p>
+        </div>
+
+        <div class="letter-section poem">
+            Aun tengo mucho que aprender sobre el amor,<br>
+            pero quiero aprenderlo contigo,<br>
+            aun tengo muchos defectos por corregir,<br>
+            pero quiero corregirlos por nosotros,<br>
+            aun no alcanzo mi mejor version,<br>
+            pero quiero que seas quien la disfrute,<br>
+            aun quedan muchas cosas por vivir,<br>
+            pero sé que quiero vivirlas contigo
+        </div>
+
+        <div class="letter-section">
+            <p>Y bueno, entiendo lo que me dijiste la vez pasada de que: "Las cosas en algun punto van a mal", pues si de cierta forma lo entiendo, entiendo que vamos a tener malos momentos, discuciones, momentos de enojo y cositas así, pero como te lo dije yo estoy aquí por y para ti, estoy dispuesto a todo y no te voy a dejar pase lo que pase, vamos a hacer que esto funcione y por eso te pido que confies en mi.</p>
+        </div>
+
+        <div class="letter-section">
+            <p>Que me digas todo pq una cosita importante como ya lo dijimos es la comunicacion y realemte estoy feliz pq ha sido asi, por eso te pido que mee corrijas cuando me equivoque, dime cuando no este comprendiendo lo que sientes, explicame que te gusta, que te incomoda y que esperas de mi, enseñame a como cuidarte mejor, como acompañarte en los días buenos y malo, pq no quiero dejar algo asi o algo sin resolver, para mi ya significas mucho y no te quiero perder.</p>
+        </div>
+
+        <div class="letter-section">
+            <p>Si soy intenso y me vas a tener ahí molestandote muchisimo tiempo todo el que tu quieras y bueno, no impora el que yo estare para ti, cuando estes triste, cuando te sientas mal, cuando te sientas cansada, cuando necesites alguito voy a estar ahi, en este momento te agradezco por todo lo que me has contando y como te has abierto a mi, en serio que es lindo y de esa manera te puedo entender y amar de una mejor forma, no importa si esas inseguridades dicen algo, yo voy a estar ahi para quitartelas y demostrarte las cositas como son, yo no me voy a rendir, Danna te lo prometo hoy y aqui, <span class="highlight">TE AMO</span>.</p>
+        </div>
+
+        <div class="letter-section">
+            <p>No sabes cuanto estoy enamorado de ti, de como eres, de tu carita, de tus labios, de tus ojitos, de tu cabello, del tono de tu cabello increible, de tus manitos, de tus brazos, de tu cintura, de tus piernas, de tus pies, de TODO, absolutamente vivo enamorado de todo tu ser, de tu inteligencia, de tu humor, de tu expontaniedad, de tu personalidad, de tus decir, de tu pensamientos, de TODO, vivo pensandote, vivo queriendo ser tuyo señorito y por eso mismo es que quiero...</p>
+        </div>
+
+        <div class="letter-section proposal-section">
+            <h3 style="font-family: 'Dancing Script'; font-size: 3.5rem; color: var(--azul-claro); margin-bottom: 10px;">¿Me dejarías ser tu novio?</h3>
+            <div class="btn-group">
+                <button class="btn-yes" onclick="celebrate()">Sí 🖤</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function checkLogin() {
+            const name = document.getElementById('nameInput').value.trim().toLowerCase();
+            if (name === "danna") {
+                document.getElementById('login-screen').style.opacity = '0';
+                setTimeout(() => {
+                    document.getElementById('login-screen').style.display = 'none';
+                    document.getElementById('main-content').style.display = 'block';
+                    document.getElementById('flower-container').style.display = 'block';
+                    initScrollReveal();
+                    createFlowers();
+                    window.scrollTo(0, 0);
+                }, 1000);
+            } else {
+                alert("Esta carta es solo para una personita especial...");
+            }
+        }
+
+        // Login con la tecla Enter
+        document.getElementById("nameInput").addEventListener("keypress", function(event) {
+            if (event.key === "Enter") {
+                event.preventDefault();
+                checkLogin();
+            }
+        });
+
+        // Revelado de secciones al hacer scroll
+        function initScrollReveal() {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, { threshold: 0.1 }); // Bajé el umbral para que aparezca más rápido
+
+            document.querySelectorAll('.letter-section').forEach(section => {
+                observer.observe(section);
+            });
+            
+            // Hacer visible la primera sección (título) inmediatamente
+            setTimeout(() => {
+                const sections = document.querySelectorAll('.letter-section');
+                if(sections.length > 0) sections[0].classList.add('visible');
+            }, 300);
+        }
+
+        // Crear sistema de flores cayendo (visible por encima de todo)
+        function createFlowers() {
+            const container = document.getElementById('flower-container');
+            // Usaremos símbolos de flores que se ven bien en azul
+            const flowerShapes = ['✿', '❀', '❁', '🌸']; 
+            const colors = ['#a8d1e7', '#7b9acc', '#5c80b5', '#cbd5e1']; // Tonos azules y hortensia
+            
+            // Crear 40 flores flotantes
+            for (let i = 0; i < 40; i++) {
+                const flower = document.createElement('div');
+                flower.className = 'flower';
+                flower.innerText = flowerShapes[Math.floor(Math.random() * flowerShapes.length)];
+                
+                // Estilos aleatorios
+                flower.style.left = Math.random() * 100 + 'vw';
+                flower.style.fontSize = Math.random() * 15 + 10 + 'px'; // Tamaños variados
+                flower.style.color = colors[Math.floor(Math.random() * colors.length)];
+                flower.style.opacity = Math.random() * 0.5 + 0.5; // Opacidad entre 0.5 y 1
+                
+                // Animación
+                const duration = Math.random() * 10 + 8; // Entre 8 y 18 segundos en caer
+                flower.style.animationDuration = duration + 's';
+                flower.style.animationDelay = Math.random() * 10 + 's';
+                
+                container.appendChild(flower);
+            }
+        }
+
+        function celebrate() {
+            alert("¡Te amo Te amo Teamo \nAhora ven y Besame como si no hubiera un mañana 🖤🖤");
+        }
+    </script>
+</body>
+</html>
